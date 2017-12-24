@@ -1,0 +1,90 @@
+<:Head>
+	<title>Sveltegram</title>
+</:Head>
+
+<:Window on:keydown='handleKeydown(event)'/>
+
+<div class='list'>
+	{{#if selected}}
+		<Modal on:dismiss='dismissModal()'>
+			<Photo id={{selected}} />
+		</Modal>
+	{{/if}}
+
+	{{#each photos as id}}
+		<div class='photo'>
+			<a class='photoLink' href='/photo?id={{id}}' on:click='show(event, id)'>
+				{{id}}
+			</a>
+		</div>
+	{{/each}}
+</div>
+
+<style>
+	.list {
+		padding: 50px;
+		text-align: center;
+	}
+
+	.photo {
+		display: inline-block;
+	}
+
+	.photoLink {
+		color: #333;
+		vertical-align: middle;
+		cursor: pointer;
+		background: #eee;
+		display: inline-block;
+		width: 250px;
+		height: 250px;
+		line-height: 250px;
+		margin: 10px;
+		border: 2px solid transparent;
+	}
+
+	.photoLink:hover {
+		border-color: blue;
+	}
+</style>
+
+<script>
+	import Modal from './_components/Modal.html';
+	import Photo from './_components/Photo.html';
+
+	export default {
+		components: {
+			Modal,
+			Photo
+		},
+
+		preload() {
+			return {
+				photos: new Array(15).fill(0).map((v, k) => k + 1)
+			};
+		},
+
+		methods: {
+			show(event, selected) {
+				if (event.which !== 1) return;
+				if (event.metaKey) return;
+
+				event.preventDefault();
+
+				this.set({ selected });
+				history.pushState({}, '', `/photo?id=${selected}`);
+			},
+
+			dismissModal() {
+				history.back();
+				this.set({ selected: null });
+			},
+
+			handleKeydown(event) {
+				if (event.which === 27 && this.get('selected')) {
+					this.dismissModal();
+				}
+			}
+		}
+	};
+</script>

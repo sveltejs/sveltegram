@@ -1,0 +1,24 @@
+<div class='background' on:click='fire("dismiss")'>
+	<div on:click='event.stopPropagation()' class='modal'>
+		<slot></slot>
+	</div>
+</div>
+
+<style>
+	.background {
+		position: fixed;
+		background: rgba(0,0,0,.65);
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+	}
+
+	.modal {
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		margin-top: -250px;
+	}
+</style>

@@ -1,0 +1,32 @@
+<:Head>
+	<title>Photo {{query.id}}</title>
+</:Head>
+
+<div class='permalink'>
+	<div class='wrap'>
+		<Photo id={{query.id}} />
+	</div>
+</div>
+
+<style>
+	.permalink {
+		padding: 100px;
+		text-align: center;
+	}
+
+	.wrap {
+		display: inline-block;
+		border: 1px solid #999;
+		margin: auto;
+	}
+</style>
+
+<script>
+	import Photo from './_components/Photo.html';
+
+	export default {
+		components: {
+			Photo
+		}
+	};
+</script>
