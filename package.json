@@ -27,5 +27,16 @@
     "svelte-loader": "^2.3.1",
     "uglifyjs-webpack-plugin": "^1.1.2",
     "webpack": "^3.10.0"
+  },
+  "now": {
+    "alias": "sveltegram.now.sh",
+    "files": [
+      "assets",
+      "routes",
+      "templates",
+      "server.js",
+      "webpack.client.config.js",
+      "webpack.server.config.js"
+    ]
   }
 }
